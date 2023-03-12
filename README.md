@@ -8,7 +8,7 @@ QChatGPT的插件，用于将输出内容转化为音频
 - 打开控制台(F12)随便生成一个音频
 - 观察控制台有一个join的websocket链接以wss开头，复制下来
 - 将生成的音频点击播放一下
-- 观察控制台有一个wav文件的链接复制下来，并去掉file=后面的参数，例如：`/tmp/tmp44z9i9_p/tmp82dtww6.wav`，留下的链接形式应该是这样的：
+- 观察控制台有一个wav文件的链接复制下来，并去掉file=后面的参数，例如:`/tmp/tmp44z9i9_p/tmp82dtww6.wav`，留下的链接形式应该是这样的：
 `https://plachta-vits-umamusume-voice-synthesizer.hf.space/file=`
 ## 2、修改配置文件
 - 下载本插件`!plugin https://github.com/oliverkirk-sudo/chat_voice.git`
