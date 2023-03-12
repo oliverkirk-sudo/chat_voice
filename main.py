@@ -59,7 +59,7 @@ class ChatVoicePlugin(Plugin):
                 event.prevent_default()
             else:
                 event.add_return('reply', [msg])
-               _remove_tmp(uuid)
+                _remove_tmp(uuid)
                 event.prevent_default()
         else:
             event.add_return('reply', [kwargs['response_text']])
