@@ -12,7 +12,7 @@ from plugins.chat_voice.config.voice_config import voice_config
 
 
 def _get_voice_wav(input_text):
-    hash_uuid = str(uuid4()).replace('-','')[:9:]
+    hash_uuid = str(uuid4()).replace('-', '')[:9:]
     if not get_audio_wav(input_text, hash_uuid):
         logging.error("wav生成失败")
         return hash_uuid, ''
@@ -59,11 +59,29 @@ class ChatVoicePlugin(Plugin):
                 event.prevent_default()
             else:
                 event.add_return('reply', [msg])
-                _remove_tmp(uuid)
                 event.prevent_default()
+            _remove_tmp(uuid)
         else:
             event.add_return('reply', [kwargs['response_text']])
             event.prevent_default()
+
+    @on(PersonNormalMessageReceived)
+    @on(GroupNormalMessageReceived)
+    def self_text_to_voice(self, event: EventContext, **kwargs):
+        msg = kwargs['text_message']
+        if msg.strip().startswith('tovoice'):
+            if not voice_config['open']:
+                event.add_return('reply', ['输出转语音功能未开启'])
+                event.prevent_default()
+            else:
+                text = msg.replace('tovoice', '').strip()
+                uuid, voice = _get_voice_wav(text)
+                if voice == '':
+                    event.add_return('reply', [kwargs['response_text']])
+                else:
+                    event.add_return('reply', [voice])
+                _remove_tmp(uuid)
+                event.prevent_default()
 
     @on(PersonCommandSent)
     @on(GroupCommandSent)
@@ -72,18 +90,16 @@ class ChatVoicePlugin(Plugin):
         if command == 'voice' and kwargs['is_admin']:
             if kwargs['params'][0] == 'on':
                 logging.debug("{}开启了文字转语音".format(kwargs['sender_id']))
-                event.prevent_default()
                 _open_text_to_voice()
                 event.add_return('reply', ["开启语音输出"])
             elif kwargs['params'][0] == 'off':
                 logging.debug("{}关闭了文字转语音".format(kwargs['sender_id']))
-                event.prevent_default()
                 _close_text_to_voice()
                 event.add_return('reply', ["语音输出关闭"])
             else:
                 logging.debug("{}输入了不正确的参数".format(kwargs['sender_id']))
-                event.prevent_default()
                 event.add_return('reply', ["不正确的参数，!voice on 为开，!voice off 为关"])
+            event.prevent_default()
 
     # 插件卸载时触发
     def __del__(self):
