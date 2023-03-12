@@ -28,3 +28,4 @@ voice_config = {
 ## 3、包含的指令
 - `!voice on` 开启输出转语音
 - `!voice off` 关闭输出转语音
+- `tovoice 文本消息` 将指定文本转换为声音输出
