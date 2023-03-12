@@ -1,0 +1,7 @@
+traceback
+mirai
+websocket
+requests
+mirai
+pilk
+pydub

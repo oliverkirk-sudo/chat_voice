@@ -1,0 +1,58 @@
+import os
+import random
+import string
+import traceback
+import logging
+import websocket
+import json
+import requests
+from plugins.chat_voice.config.voice_config import voice_config
+
+rand_str = ''.join(random.choices(string.ascii_lowercase + string.digits, k=11))
+character = voice_config['character']
+language = voice_config['language']
+audio_speed = voice_config['audio_speed']
+hash_session = '{"session_hash":"' + rand_str + '","fn_index":2}'
+audio_data = ''
+audio_url = ''
+base_url =voice_config['download_url']
+ws_url = voice_config['websocket']
+
+
+def _get_audio_url():
+    websocket.enableTrace(True)
+    ws = websocket.WebSocketApp(ws_url, on_message=on_message, )
+    ws.on_open = on_open
+    ws.run_forever(ping_timeout=30)
+    return base_url + audio_url
+
+
+def on_message(ws, message):
+    global audio_url
+    try:
+        if json.loads(message)['msg'] == 'send_hash':
+            ws.send(hash_session)
+        if json.loads(message)['msg'] == 'send_data':
+            ws.send(audio_data)
+        if json.loads(message)['msg'] == 'process_completed':
+            audio_url = json.loads(message)['output']['data'][1]['name']
+    except Exception:
+        traceback.print_exc()
+        return ''
+
+
+def on_open(ws):
+    pass
+
+
+def get_audio_wav(text, hash_uuid):
+    global audio_data
+    audio_data = '{"fn_index":2,"data":["' + text + '","' + character + '","' + language + '",' + audio_speed + ',false],"session_hash":"' + rand_str + '"}'
+    file_path = os.getcwd()
+    try:
+        with open(os.path.join(file_path, 'voice_tmp', 'voice_' + hash_uuid + '.wav'), 'wb') as f:
+            f.write(requests.get(_get_audio_url()).content)
+        return True
+    except Exception:
+        traceback.print_exc()
+        return False
