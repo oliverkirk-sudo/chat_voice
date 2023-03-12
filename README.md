@@ -12,7 +12,7 @@ QChatGPT的插件，用于将输出内容转化为音频
 `https://plachta-vits-umamusume-voice-synthesizer.hf.space/file=`
 ## 2、修改配置文件
 - 下载本插件`!plugin https://github.com/oliverkirk-sudo/chat_voice.git`
-- 在config文件夹中修改voice_config.py,格式如下：
+- 在config文件夹中将voice_config-temp.py修改为voice_config.py,格式如下：
 ```python
 voice_config = {
     "open": True, #默认开关
@@ -20,7 +20,8 @@ voice_config = {
     "language": '简体中文', #生成文本的语言['简体中文','日本語','English','Mix']
     "audio_speed": '1', #播放速度,可为保留一位小数点的小数[0.1 - 5]
     "download_url":'', #填入刚复制以https开头的链接
-    "websocket":'' #填入以wss开头的websocket链接
+    "websocket":'', #填入以wss开头的websocket链接
+    "limitLength":256,  #设置语音文字限长 0为无限制
 }
 ```
 - 用`!relaod`重新加载插件

@@ -12,6 +12,8 @@ from plugins.chat_voice.config.voice_config import voice_config
 
 
 def _get_voice_wav(input_text):
+    if voice_config['limitLength'] != 0 and len(input_text)>voice_config['limitLength']:
+        input_text = input_text[0:voice_config['limitLength']] #超过限长截取
     hash_uuid = str(uuid4()).replace('-', '')[:9:]
     if not get_audio_wav(input_text, hash_uuid):
         logging.error("wav生成失败")
