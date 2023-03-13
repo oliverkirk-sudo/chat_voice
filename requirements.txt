@@ -1,7 +1,6 @@
 traceback
 mirai
-websocket
+websocket-client
 requests
-mirai
 pilk
 pydub

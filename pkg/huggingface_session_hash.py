@@ -18,14 +18,11 @@ audio_url = ''
 base_url =voice_config['download_url']
 ws_url = voice_config['websocket']
 
-
 def _get_audio_url():
-    websocket.enableTrace(True)
-    ws = websocket.WebSocketApp(ws_url, on_message=on_message, )
-    ws.on_open = on_open
+    websocket.enableTrace(False)
+    ws = websocket.WebSocketApp(ws_url, on_message=on_message)
     ws.run_forever(ping_timeout=30)
     return base_url + audio_url
-
 
 def on_message(ws, message):
     global audio_url
@@ -39,11 +36,6 @@ def on_message(ws, message):
     except Exception:
         traceback.print_exc()
         return ''
-
-
-def on_open(ws):
-    pass
-
 
 def get_audio_wav(text, hash_uuid):
     global audio_data

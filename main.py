@@ -56,16 +56,11 @@ class ChatVoicePlugin(Plugin):
     def person_normal_message_received(self, event: EventContext, **kwargs):
         if voice_config['open']:
             uuid, msg = _get_voice_wav(kwargs['response_text'])
-            if msg == '':
-                event.add_return('reply', [kwargs['response_text']])
-                event.prevent_default()
-            else:
+            if msg != '':
+                logging.info("回复的语音消息是：{}".format(kwargs['response_text']))
                 event.add_return('reply', [msg])
                 event.prevent_default()
             _remove_tmp(uuid)
-        else:
-            event.add_return('reply', [kwargs['response_text']])
-            event.prevent_default()
 
     @on(PersonNormalMessageReceived)
     @on(GroupNormalMessageReceived)
@@ -74,16 +69,13 @@ class ChatVoicePlugin(Plugin):
         if msg.strip().startswith('tovoice'):
             if not voice_config['open']:
                 event.add_return('reply', ['输出转语音功能未开启'])
-                event.prevent_default()
             else:
                 text = msg.replace('tovoice', '').strip()
                 uuid, voice = _get_voice_wav(text)
-                if voice == '':
-                    event.add_return('reply', [kwargs['response_text']])
-                else:
+                if voice != '':
                     event.add_return('reply', [voice])
                 _remove_tmp(uuid)
-                event.prevent_default()
+            event.prevent_default()
 
     @on(PersonCommandSent)
     @on(GroupCommandSent)
