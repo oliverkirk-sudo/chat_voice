@@ -43,7 +43,7 @@ def _open_text_to_voice():
 def _close_text_to_voice():
     voice_config["open"] = False
 
-def send_msg(host,kwargs,msg):
+def send_msg(kwargs,msg):
     host:pkg.plugin.host.PluginHost=kwargs['host']
     host.send_person_message(kwargs['launcher_id'],msg) if kwargs['launcher_type']=='person' else host.send_group_message(kwargs['launcher_id'],msg)
 
@@ -61,7 +61,8 @@ class ChatVoicePlugin(Plugin):
             uuid, msg = _get_voice_wav(kwargs['response_text'])
             if msg != '':
                 logging.info("回复的语音消息是：{}".format(kwargs['response_text']))
-                send_msg(host,kwargs,msg)
+                send_msg(kwargs,kwargs['response_text'])
+                send_msg(kwargs,msg)
                 event.prevent_default()
             _remove_tmp(uuid)
 
@@ -72,13 +73,12 @@ class ChatVoicePlugin(Plugin):
         host:pkg.plugin.host.PluginHost=kwargs['host']
         if msg.strip().startswith('tovoice'):
             if not voice_config['open']:
-                send_msg(host,kwargs,'输出转语音功能未开启')
+                send_msg(kwargs,'输出转语音功能未开启')
             else:
                 text = msg.replace('tovoice', '').strip()
                 uuid, voice = _get_voice_wav(text)
                 if voice != '':
-                    send_msg(host,kwargs,text)
-                    send_msg(host,kwargs,voice)
+                    send_msg(kwargs,voice)
                 _remove_tmp(uuid)
             event.prevent_default()
 
@@ -90,14 +90,14 @@ class ChatVoicePlugin(Plugin):
             if kwargs['params'][0] == 'on':
                 logging.debug("{}开启了文字转语音".format(kwargs['sender_id']))
                 _open_text_to_voice()
-                send_msg(host,kwargs,"开启语音输出")
+                send_msg(kwargs,"开启语音输出")
             elif kwargs['params'][0] == 'off':
                 logging.debug("{}关闭了文字转语音".format(kwargs['sender_id']))
                 _close_text_to_voice()
-                send_msg(host,kwargs,"语音输出关闭")
+                send_msg(kwargs,"语音输出关闭")
             else:
                 logging.debug("{}输入了不正确的参数".format(kwargs['sender_id']))
-                send_msg(host,kwargs,"不正确的参数，!voice on 为开，!voice off 为关")
+                send_msg(kwargs,"不正确的参数，!voice on 为开，!voice off 为关")
             event.prevent_default()
 
     # 插件卸载时触发
