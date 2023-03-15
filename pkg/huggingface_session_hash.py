@@ -21,7 +21,8 @@ ws_url = voice_config['websocket']
 def _get_audio_url():
     websocket.enableTrace(False)
     ws = websocket.WebSocketApp(ws_url, on_message=on_message)
-    ws.run_forever(ping_timeout=30)
+    ws.run_forever(ping_timeout=30, http_proxy_host=voice_config["proxy_host"],
+                   http_proxy_port=voice_config["proxy_port"] if voice_config["proxy_port"] else '', proxy_type=voice_config["proxy_type"])
     return base_url + audio_url
 
 def on_message(ws, message):

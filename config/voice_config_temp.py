@@ -6,4 +6,7 @@ voice_config = {
     "download_url":'', #填入刚复制以https开头的链接
     "websocket":'', #填入以wss开头的websocket链接
     "limitLength":256,  #设置语音文字限长 0为无限制
+    # "proxy_host": "127.0.0.1", #代理ip
+    # "proxy_port": 7890, #代理端口
+    # "proxy_type": "http" #代理方式 http | socks5
 }

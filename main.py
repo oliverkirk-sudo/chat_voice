@@ -44,6 +44,7 @@ def _close_text_to_voice():
     voice_config["open"] = False
 
 def send_msg(host,kwargs,msg):
+    host:pkg.plugin.host.PluginHost=kwargs['host']
     host.send_person_message(kwargs['launcher_id'],msg) if kwargs['launcher_type']=='person' else host.send_group_message(kwargs['launcher_id'],msg)
 
 # 注册插件
