@@ -48,7 +48,7 @@ def send_msg(host,kwargs,msg):
     host.send_person_message(kwargs['launcher_id'],msg) if kwargs['launcher_type']=='person' else host.send_group_message(kwargs['launcher_id'],msg)
 
 # 注册插件
-@register(name="chat_voice", description="让机器人用语音输出", version="0.1", author="oliverkirk-sudo")
+@register(name="chat_voice", description="让机器人用语音输出", version="0.2", author="oliverkirk-sudo")
 class ChatVoicePlugin(Plugin):
 
     def __init__(self, plugin_host: PluginHost):
