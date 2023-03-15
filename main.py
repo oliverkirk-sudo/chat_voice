@@ -77,7 +77,7 @@ class ChatVoicePlugin(Plugin):
                 text = msg.replace('tovoice', '').strip()
                 uuid, voice = _get_voice_wav(text)
                 if voice != '':
-                    send_msg(host,kwargs,msg)
+                    send_msg(host,kwargs,text)
                     send_msg(host,kwargs,voice)
                 _remove_tmp(uuid)
             event.prevent_default()
