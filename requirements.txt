@@ -1,5 +1,4 @@
-traceback
-mirai
+azure-cognitiveservices-speech
 websocket-client
 requests
 pilk
