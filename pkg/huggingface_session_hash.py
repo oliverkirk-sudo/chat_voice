@@ -17,9 +17,9 @@ audio_data = ''
 audio_url = ''
 base_url =voice_config['download_url']
 ws_url = voice_config['websocket']
-host=voice_config['proxy_host']
-port=voice_config['proxy_port']
-proxy_type=voice_config['proxy_type']
+host=voice_config['proxy_host'] if 'proxy_host' in voice_config.keys() else None
+port=voice_config['proxy_port'] if 'proxy_port' in voice_config.keys() else None
+proxy_type=voice_config['proxy_type'] if 'proxy_type' in voice_config.keys() else None
 
 
 
