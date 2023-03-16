@@ -5,6 +5,7 @@ QChatGPT的插件,用于将输出内容转化为音频,适用于小内存服务�
 
 <details>
 <summary>Huggingface</summary>
+    
 - 首先注册一个[Huggingface](https://huggingface.co/)的账户
 - 在[Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer)仓库右上角三点选择(Duplicate this Space)复制空间
 - 等待空间创建完毕
@@ -13,13 +14,16 @@ QChatGPT的插件,用于将输出内容转化为音频,适用于小内存服务�
 - 将生成的音频点击播放一下
 - 观察控制台有一个wav文件的链接复制下来，并去掉file=后面的参数，例如:`/tmp/tmp44z9i9_p/tmp82dtww6.wav`，留下的链接形式应该是这样的：
 `https://plachta-vits-umamusume-voice-synthesizer.hf.space/file=`
+    
 </details>
 
 <details>
 <summary>Azure</summary>
+    
 - 首先在[Azure](https://azure.microsoft.com/zh-cn/)注册账号
 - 创建[语音服务](https://portal.azure.com/#view/Microsoft_Azure_Marketplace/GalleryItemDetailsBladeNopdl/id/Microsoft.CognitiveServicesSpeechServices)
 - 在面板中找到密钥与区域填入配置文件
+    
 </details>
 
 <strong>其中Huggingface永久免费，Azure每月50万字的额度</strong>
