@@ -30,6 +30,7 @@
 
 ## 2、修改配置文件
 - 下载本插件`!plugin https://github.com/oliverkirk-sudo/chat_voice.git`
+- 进入插件目录执行`pip install -r requirements.txt`
 - 在config文件夹中将voice_config-temp.py修改为voice_config.py,格式如下：
 ```python
 voice_config = {
