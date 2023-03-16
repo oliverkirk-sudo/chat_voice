@@ -1,5 +1,4 @@
-azure-cognitiveservices-speech
-websocket-client
-requests
-pilk
-pydub
+pydub==0.25.1
+azure-cognitiveservices-speech==1.26.0
+websocket-client==1.5.1
+pilk==0.2.3
