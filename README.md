@@ -1,5 +1,5 @@
 # chat_voice
-QChatGPT的插件,用于将输出内容转化为音频,适用于小内存服务器
+[QChatGPT](https://github.com/RockChinQ/QChatGPT)的插件,用于将输出内容转化为音频,适用于小内存服务器
 
 ## 1、前置工作
 
