@@ -49,7 +49,7 @@ azure_config = {
     # 参考https://learn.microsoft.com/zh-cn/azure/cognitive-services/speech-service/language-support?tabs=tts#prebuilt-neural-voices
 }
 huggingface_config = {
-    "character": '派蒙 Paimon (Genshin Impact)',  # 希望生成声音的角色
+    "character": '0',  # 希望生成声音的角色,详情看mapper.py
     "language": '简体中文',  # 生成文本的语言['简体中文','日本語','English','Mix']
     "audio_speed": '1',  # 播放速度,可为保留一位小数点的小数[0.1 - 5]
     "download_url": '',  # 填入刚复制以https开头的链接

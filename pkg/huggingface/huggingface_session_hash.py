@@ -5,10 +5,12 @@ import traceback
 import websocket
 import json
 import requests
+from plugins.chat_voice.config.mapper import character_list
 from plugins.chat_voice.config.voice_config import huggingface_config,voice_config
 
+
 rand_str = ''.join(random.choices(string.ascii_lowercase + string.digits, k=11))
-character = huggingface_config['character']
+character = character_list[huggingface_config['character']]
 language = huggingface_config['language']
 audio_speed = huggingface_config['audio_speed']
 hash_session = '{"session_hash":"' + rand_str + '","fn_index":2}'

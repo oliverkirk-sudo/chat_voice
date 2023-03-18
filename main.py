@@ -3,6 +3,7 @@ import traceback
 import mirai
 from pkg.plugin.models import *
 from pkg.plugin.host import EventContext, PluginHost
+from plugins.chat_voice.config.mapper import voice_type_mapping
 from plugins.chat_voice.pkg.azure.azure_text_to_speech import Azure
 from plugins.chat_voice.pkg.huggingface.huggingface_session_hash import get_audio_wav
 from plugins.chat_voice.pkg.wav2silk import convert_to_silk
@@ -59,7 +60,7 @@ def send_msg(kwargs, msg):
 
 
 # 注册插件
-@register(name="chat_voice", description="让机器人用语音输出", version="0.3", author="oliverkirk-sudo")
+@register(name="chat_voice", description="让机器人用语音输出", version="0.4", author="oliverkirk-sudo")
 class ChatVoicePlugin(Plugin):
 
     def __init__(self, plugin_host: PluginHost):
@@ -96,23 +97,20 @@ class ChatVoicePlugin(Plugin):
     @on(GroupCommandSent)
     def open_text_to_voice(self, event: EventContext, **kwargs):
         command = kwargs['command']
+        params = kwargs['params']
         if command == 'voice' and kwargs['is_admin']:
-            if kwargs['params'][0] == 'on':
+            if params[0] == 'on':
                 logging.debug("{}开启了文字转语音".format(kwargs['sender_id']))
                 _open_text_to_voice()
                 send_msg(kwargs, "开启语音输出")
-            elif kwargs['params'][0] == 'off':
+            elif params[0] == 'off':
                 logging.debug("{}关闭了文字转语音".format(kwargs['sender_id']))
                 _close_text_to_voice()
                 send_msg(kwargs, "语音输出关闭")
-            elif kwargs['params'][0] == 'type' and kwargs['params'][1] == 'azu':
-                voice_config['voice_type'] = 'azure'
-                logging.debug("切换到微软语音合成")
-                send_msg(kwargs, "切换到微软语音合成")
-            elif kwargs['params'][0] == 'type' and kwargs['params'][1] == 'hgf':
-                voice_config['voice_type'] = 'huggingface'
-                logging.debug("切换到VITS语音合成")
-                send_msg(kwargs, "切换到VITS语音合成")
+            elif kwargs['params'][0] == 'type' and len(params) > 1 and params[1] in voice_type_mapping:
+                voice_config['voice_type'] = voice_type_mapping[params[1]]
+                logging.debug(f"切换到{voice_type_mapping[params[1]]}语音合成")
+                send_msg(kwargs, f"切换到{voice_type_mapping[params[1]]}语音合成")
             else:
                 logging.error("输入了不正确的参数")
                 send_msg(kwargs, "输入了不正确的参数")
