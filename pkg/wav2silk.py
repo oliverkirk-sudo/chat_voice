@@ -10,5 +10,5 @@ def convert_to_silk(media_path: str) -> str:
     pcm_path = os.path.join(pcm_path, (name + '.pcm'))
     media.export(pcm_path, 's16le', parameters=['-ar', str(24000), '-ac', '1']).close()
     pilk.encode(pcm_path, silk_path, pcm_rate=24000, tencent=True)
-    logging.DEBUG('silk生成成功')
+    logging.debug('silk生成成功')
     return silk_path
