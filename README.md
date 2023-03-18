@@ -7,7 +7,7 @@
 <summary>Huggingface</summary>
     
 - 首先注册一个[Huggingface](https://huggingface.co/)的账户
-- 在[Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer)仓库右上角三点选择(Duplicate this Space)复制空间
+- 在[Plachta](https://huggingface.co/spaces/Plachta/VITS-Umamusume-voice-synthesizer)仓库右上角三点选择(Duplicate this Space)复制空间（选择公有库Public,私有库会导致连不上）
 - 等待空间创建完毕
 - 打开控制台(F12)随便生成一个音频
 - 观察控制台有一个join的websocket链接以wss开头，复制下来
