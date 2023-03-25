@@ -3,9 +3,7 @@ import traceback
 import mirai
 from pkg.plugin.models import *
 from pkg.plugin.host import EventContext, PluginHost
-from plugins.chat_voice.config.mapper import voice_type_mapping
-from plugins.chat_voice.pkg.azure.azure_text_to_speech import Azure
-from plugins.chat_voice.pkg.huggingface.huggingface_session_hash import get_audio_wav
+from plugins.chat_voice.config.mapper import voice_type_mapping,method_mapping
 from plugins.chat_voice.pkg.wav2silk import convert_to_silk
 from uuid import uuid4
 from plugins.chat_voice.config.voice_config import voice_config
@@ -15,17 +13,12 @@ def _get_voice_wav(input_text):
     if voice_config['limitLength'] != 0 and len(input_text) > voice_config['limitLength']:
         input_text = input_text[0:voice_config['limitLength']]  # 超过限长截取
     hash_uuid = str(uuid4()).replace('-', '')[:9:]
-
-    if voice_config['voice_type'] == "huggingface":
-        if not get_audio_wav(input_text, hash_uuid):
-            logging.error("wav生成失败")
-            return hash_uuid, ''
-    elif voice_config['voice_type'] == "azure":
-        if not Azure().azure_voice(input_text, hash_uuid):
-            logging.error("wav生成失败")
-            return hash_uuid, ''
-    else:
+    if not voice_config['voice_type'] in method_mapping.keys():
         logging.error("不正确的音源,请设置voice_config中的voice_type")
+        return hash_uuid, ''
+    if not method_mapping[voice_config['voice_type']](input_text, hash_uuid):
+        logging.error("wav生成失败")
+        return hash_uuid, ''
     return hash_uuid, _wav2silk(hash_uuid)
 
 
@@ -60,7 +53,7 @@ def send_msg(kwargs, msg):
 
 
 # 注册插件
-@register(name="chat_voice", description="让机器人用语音输出", version="0.4", author="oliverkirk-sudo")
+@register(name="chat_voice", description="让机器人用语音输出", version="0.5", author="oliverkirk-sudo")
 class ChatVoicePlugin(Plugin):
 
     def __init__(self, plugin_host: PluginHost):

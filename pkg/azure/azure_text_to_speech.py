@@ -1,34 +1,28 @@
 import os
 import logging
+import traceback
 import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech import SpeechSynthesizer, AudioDataStream
-
-from plugins.chat_voice.config.voice_config import azure_config
-
+try:
+    from plugins.chat_voice.config.voice_config import azure_config
+except Exception:
+    logging.error("请先配置voice_config.py")
+    traceback.print_exc()
 
 class Azure:
 
     def __init__(self):
         self.speech: SpeechSynthesizer = None
-
         self.speech_key: str = azure_config["secret"]
-
         self.service_region: str = azure_config["region"]
-
         self.hash_uuid = ''
 
     def set_config(self):
         speech_config = speechsdk.SpeechConfig(subscription=self.speech_key, region=self.service_region)
-
-        audio_config = speechsdk.audio.AudioOutputConfig(
-            filename=os.path.join(os.getcwd(), 'voice_tmp', 'voice_' + self.hash_uuid + '.wav'))
-
+        audio_config = speechsdk.audio.AudioOutputConfig(filename=os.path.join(os.getcwd(), 'voice_tmp', 'voice_' + self.hash_uuid + '.wav'))
         speech_config.speech_synthesis_language = azure_config["language"]
-
         speech_config.speech_synthesis_voice_name = azure_config["language_person"]
-
         speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=audio_config)
-
         self.speech = speech_synthesizer
 
     def get_voice(self, text):
@@ -52,3 +46,13 @@ class Azure:
         self.hash_uuid = hash_uuid
         self.set_config()
         return self.get_voice(text)
+
+
+def save_azure_wav(text, hash_uuid):
+    azure = Azure()
+    try:
+        azure.azure_voice(text, hash_uuid)
+        return True
+    except Exception:
+        traceback.print_exc()
+        return False
