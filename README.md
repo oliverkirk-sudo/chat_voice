@@ -30,7 +30,7 @@
 <details>
 <summary>本地模型</summary>
     
-- 代码参考自[FirKyle/vits](https://huggingface.co/spaces/FirKyle/vits)
+- 代码参考自[vits-uma-genshin-honkai](https://huggingface.co/spaces/ikechan8370/vits-uma-genshin-honkai)
 - 模型依赖编译环境，请提前安装cmake（非pip安装），Ubuntu/Debian执行 `sudo apt-get install build-essential`,Centos执行`sudo yum groupinstall "Development Tools"`
 - 由于默认不使用本地模型，且依赖较多，要使用请到vits文件夹下执行`pip install -r requirements.txt`
 - 由于编译环境造成的错误请自行百度
@@ -38,7 +38,7 @@
 - config.json应与模型对应，不可使用其他模型config
 - config.json仅支持moegoe内容格式的config文件，具体参考[MoeGoe](https://github.com/CjangCjengh/MoeGoe)
 - 未来会支持角色实时切换与角色预览，以及其他参数调节
-- 未来会支持[FirKyle/vits](https://huggingface.co/spaces/FirKyle/vits)以及提供修改方法[songwy/vits](https://huggingface.co/spaces/songwy/vits)
+- 未来会支持[vits-uma-genshin-honkai](https://huggingface.co/spaces/ikechan8370/vits-uma-genshin-honkai)以及提供修改方法[songwy/vits](https://huggingface.co/spaces/songwy/vits)
 
 </details>
 
