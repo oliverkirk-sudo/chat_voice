@@ -27,8 +27,8 @@
 </details>
 
 <details>
-    
 <summary>本地模型</summary>
+    
 - 代码参考自[FirKyle/vits](https://huggingface.co/spaces/FirKyle/vits)
 - 模型依赖编译环境，请提前安装cmake（非pip安装），Ubuntu/Debian执行 `sudo apt-get install build-essential`,Centos执行`sudo yum groupinstall "Development Tools"`
 - 由于默认不使用本地模型，且依赖较多，要使用请到vits文件夹下执行`pip install -r requirements.txt`
