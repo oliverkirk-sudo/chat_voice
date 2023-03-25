@@ -1,6 +1,6 @@
 # chat_voice
 [QChatGPT](https://github.com/RockChinQ/QChatGPT)的插件,用于将输出内容转化为音频,适用于小内存服务器
-新增支持本地模型部署
+- 新增支持本地模型部署
 ## 1、前置工作
 使用前请先安装[FFmpeg](https://www.ffmpeg.org/download.html)并加入环境变量
 <details>
@@ -81,7 +81,6 @@ vits_config = {
 }
 ```
 - 用`!relaod`重新加载插件
-- <strong>注意</strong>：修改character配置项需要注意与网页上character中的文本一字不差，包括空格
 ## 3、包含的指令
 - `!voice on` 开启输出转语音
 - `!voice off` 关闭输出转语音
