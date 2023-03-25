@@ -1,4 +1,4 @@
-pydub==0.25.1
-azure-cognitiveservices-speech==1.26.0
-websocket-client==1.5.1
-pilk==0.2.3
+azure-cognitiveservices-speech~=1.26.0
+websocket-client~=1.5.1
+av~=10.0.0
+pilk~=0.2.3

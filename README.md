@@ -2,7 +2,8 @@
 [QChatGPT](https://github.com/RockChinQ/QChatGPT)的插件,用于将输出内容转化为音频,适用于小内存服务器
 - 新增支持本地模型部署
 ## 1、前置工作
-使用前请先安装[FFmpeg](https://www.ffmpeg.org/download.html)并加入环境变量
+~~使用前请先安装[FFmpeg](https://www.ffmpeg.org/download.html)并加入环境变量~~
+包内自动安装对FFmpeg的依赖
 <details>
 <summary>Huggingface</summary>
     
