@@ -1,9 +1,13 @@
 import logging
 import traceback
+from plugins.chat_voice.config.voice_config import voice_config
 try:
-    from plugins.chat_voice.pkg.huggingface.huggingface_session_hash import get_audio_wav
-    from plugins.chat_voice.pkg.azure.azure_text_to_speech import save_azure_wav
-    from plugins.chat_voice.pkg.vits.vits_text_to_speech import save_vits_wav
+    if voice_config['voice_type']=='huggingface':
+        from plugins.chat_voice.pkg.huggingface.huggingface_session_hash import get_audio_wav
+    elif voice_config['voice_type']=='azure':
+        from plugins.chat_voice.pkg.azure.azure_text_to_speech import save_azure_wav
+    elif voice_config['voice_type']=='vits':
+        from plugins.chat_voice.pkg.vits.vits_text_to_speech import save_vits_wav
 except Exception:
     logging.error("包加载错误")
     traceback.print_exc()
