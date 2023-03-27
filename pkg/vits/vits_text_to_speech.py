@@ -1,19 +1,8 @@
 # coding=utf-8
-import time
 import os
+import time
 import traceback
-
-import numpy as np
-
-import plugins.chat_voice.pkg.vits.utils as utils
-import plugins.chat_voice.pkg.vits.commons as commons
-from plugins.chat_voice.pkg.vits.models import SynthesizerTrn
-from plugins.chat_voice.pkg.vits.text import text_to_sequence
-import torch
-from torch import no_grad, LongTensor
 import logging
-from scipy.io.wavfile import write
-
 try:
     from plugins.chat_voice.config.voice_config import vits_config
 except Exception:
@@ -117,10 +106,20 @@ class Vits:
         self.model, self.optimizer, self.learning_rate, self.epochs = utils.load_checkpoint(model_path, self.net_g_ms,
                                                                                             None)
         return self.vits(text_to_voice, self.lang, self.speak_id, self.ns, self.nsw, self.ls)
-
+    
+def load_package(self):
+    import torch
+    from torch import no_grad, LongTensor
+    import plugins.chat_voice.pkg.vits.utils as utils
+    import plugins.chat_voice.pkg.vits.commons as commons
+    from plugins.chat_voice.pkg.vits.models import SynthesizerTrn
+    from plugins.chat_voice.pkg.vits.text import text_to_sequence
+    import numpy as np
+    from scipy.io.wavfile import write
 
 def save_vits_wav(text, hash_uuid):
     if load_model:
+        load_package()
         vits = Vits()
         status, voice = vits.get_vits_voice_tuple(text)
         if not status:
