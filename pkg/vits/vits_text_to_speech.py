@@ -107,15 +107,19 @@ class Vits:
                                                                                             None)
         return self.vits(text_to_voice, self.lang, self.speak_id, self.ns, self.nsw, self.ls)
     
-def load_package(self):
-    import torch
-    from torch import no_grad, LongTensor
-    import plugins.chat_voice.pkg.vits.utils as utils
-    import plugins.chat_voice.pkg.vits.commons as commons
-    from plugins.chat_voice.pkg.vits.models import SynthesizerTrn
-    from plugins.chat_voice.pkg.vits.text import text_to_sequence
-    import numpy as np
-    from scipy.io.wavfile import write
+def load_package():
+    try:
+        import torch
+        from torch import no_grad, LongTensor
+        import plugins.chat_voice.pkg.vits.utils as utils
+        import plugins.chat_voice.pkg.vits.commons as commons
+        from plugins.chat_voice.pkg.vits.models import SynthesizerTrn
+        from plugins.chat_voice.pkg.vits.text import text_to_sequence
+        import numpy as np
+        from scipy.io.wavfile import write
+    except Exception:
+        logging.error('尚未安装vits需要的包，或包出现错误，请到vits目录下安装相应包')
+        traceback.print_exc()
 
 def save_vits_wav(text, hash_uuid):
     if load_model:

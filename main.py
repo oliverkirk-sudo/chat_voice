@@ -53,7 +53,7 @@ def send_msg(kwargs, msg):
 
 
 # 注册插件
-@register(name="chat_voice", description="让机器人用语音输出", version="0.6", author="oliverkirk-sudo")
+@register(name="chat_voice", description="让机器人用语音输出", version="0.7", author="oliverkirk-sudo")
 class ChatVoicePlugin(Plugin):
 
     def __init__(self, plugin_host: PluginHost):
