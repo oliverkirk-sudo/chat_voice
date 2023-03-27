@@ -1,3 +1,5 @@
+import logging
+import traceback
 try:
     from plugins.chat_voice.pkg.huggingface.huggingface_session_hash import get_audio_wav
     from plugins.chat_voice.pkg.azure.azure_text_to_speech import save_azure_wav
