@@ -38,7 +38,7 @@
 - 模型依赖编译环境，请提前安装cmake（非pip安装），Ubuntu/Debian执行 `sudo apt-get install build-essential`,Centos执行`sudo yum groupinstall "Development Tools"`
 - 由于默认不使用本地模型，且依赖较多，要使用请到vits文件夹下执行`pip install -r requirements.txt`
 - 由于编译环境造成的错误请自行百度
-- 将模型(G_latest.pth)与配置文件(config.json)放入model文件夹中,在Releases中下载测试模型model.zip，解压并将两个文件放在model文件夹中，由于只包含纳西妲一个角色，所以请不要更改`speak_id`
+- 将模型(G_latest.pth)与配置文件(config.json)放入model文件夹中,在Releases中下载测试模型model.zip，在chat_voice根目录下创建model文件夹，解压并将两个文件放在model文件夹中，由于只包含纳西妲一个角色，所以请不要更改`speak_id`
 - config.json应与模型对应，不可使用其他模型config
 - config.json仅支持moegoe内容格式的config文件，具体参考[MoeGoe](https://github.com/CjangCjengh/MoeGoe)
 - 未来会支持角色实时切换与角色预览，以及其他参数调节
