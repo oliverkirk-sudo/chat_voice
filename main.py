@@ -66,7 +66,7 @@ class ChatVoicePlugin(Plugin):
             uuid, msg = _get_voice_wav(kwargs['response_text'])
             if msg != '':
                 logging.info("回复的语音消息是：{}".format(kwargs['response_text']))
-                send_msg(kwargs, kwargs['response_text'])
+                send_msg(kwargs, kwargs['prefix']+kwargs['response_text'])
                 send_msg(kwargs, msg)
             event.prevent_default()
             _remove_tmp(uuid)
