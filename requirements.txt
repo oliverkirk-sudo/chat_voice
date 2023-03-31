@@ -10,5 +10,4 @@ jamo~=0.4.1
 pypinyin~=0.48.0
 numpy~=1.23.5
 librosa~=0.10.0.post2
-torch~=2.0.0
 requests~=2.28.2
