@@ -49,7 +49,7 @@
 <strong>其中Huggingface永久免费但每次限制150字，Azure每月50万字的额度，本地模型对CPU内存要求较高</strong>
 
 ## 2、修改配置文件
-- 下载本插件`!plugin https://github.com/oliverkirk-sudo/chat_voice.git`
+- 下载本插件`!plugin get https://github.com/oliverkirk-sudo/chat_voice.git`
 - 进入插件目录执行`pip install -r requirements.txt`
 - 在config文件夹中将voice_config-temp.py修改为voice_config.py,格式如下：
 ```python
