@@ -3,11 +3,16 @@ import logging
 import traceback
 import azure.cognitiveservices.speech as speechsdk
 from azure.cognitiveservices.speech import SpeechSynthesizer, AudioDataStream
-try:
-    from plugins.chat_voice.config.voice_config import azure_config
-except Exception:
-    logging.error("请先配置voice_config.py")
-    traceback.print_exc()
+from plugins.chat_voice.config.voice_config import azure_config
+
+def save_azure_wav(text, hash_uuid):
+    azure = Azure()
+    try:
+        azure.azure_voice(text, hash_uuid)
+        return True
+    except Exception:
+        traceback.print_exc()
+        return False
 
 class Azure:
 
@@ -48,11 +53,4 @@ class Azure:
         return self.get_voice(text)
 
 
-def save_azure_wav(text, hash_uuid):
-    azure = Azure()
-    try:
-        azure.azure_voice(text, hash_uuid)
-        return True
-    except Exception:
-        traceback.print_exc()
-        return False
+
