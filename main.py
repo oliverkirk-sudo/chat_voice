@@ -7,7 +7,7 @@ from plugins.chat_voice.config.mapper import voice_type_mapping,method_mapping
 from plugins.chat_voice.pkg.wav2silk import convert_to_silk
 from uuid import uuid4
 from plugins.chat_voice.config.voice_config import voice_config
-
+import base64
 
 def _get_voice_wav(input_text):
     if voice_config['limitLength'] != 0 and len(input_text) > voice_config['limitLength']:
@@ -24,13 +24,22 @@ def _get_voice_wav(input_text):
 
 def _wav2silk(hash_uuid):
     wav_path = os.path.join(os.getcwd(), 'voice_tmp', 'voice_' + hash_uuid + '.wav')
-    return mirai.Voice(path=convert_to_silk(wav_path))
+    path=convert_to_silk(wav_path)
+    if os.path.exists(path):
+        with open(path, 'rb') as audio_file:
+            audio_data = audio_file.read()
+        base64_silk = base64.b64encode(audio_data).decode('utf-8')
+        return mirai.Voice(base64=base64_silk)
+    else:
+        return "未找到silk位置"
+    
 
 
 def _remove_tmp(hash_uuid):
     try:
         os.remove(os.path.join(os.getcwd(), 'voice_tmp', 'voice_' + hash_uuid + '.wav'))
         os.remove(os.path.join(os.getcwd(), 'voice_tmp', 'voice_' + hash_uuid + '.pcm'))
+#        os.remove(os.path.join(os.getcwd(), 'voice_tmp', 'voice_' + hash_uuid + '.silk'))
     except FileNotFoundError:
         logging.warning("未找到wav,pcm与silk文件")
     except Exception:
@@ -63,9 +72,9 @@ class ChatVoicePlugin(Plugin):
     @on(NormalMessageResponded)
     def person_normal_message_received(self, event: EventContext, **kwargs):
         if voice_config['open']:
+            logging.info("回复的语音消息是：{}".format(kwargs['response_text']))
             uuid, msg = _get_voice_wav(kwargs['response_text'])
             if msg != '':
-                logging.info("回复的语音消息是：{}".format(kwargs['response_text']))
                 send_msg(kwargs, kwargs['prefix']+kwargs['response_text'])
                 send_msg(kwargs, msg)
             event.prevent_default()

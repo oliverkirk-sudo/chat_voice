@@ -10,8 +10,8 @@ except Exception:
     traceback.print_exc()
 
 load_model = True
-model_path = os.path.join(os.getcwd(), "plugins/chat_voice/model/G_latest.pth")
-config_path = os.path.join(os.getcwd(), "plugins/chat_voice/model/config.json")
+model_path = os.path.join(os.getcwd(), "plugins/chat_voice/model/vits/G_latest.pth")
+config_path = os.path.join(os.getcwd(), "plugins/chat_voice/model/vits/config.json")
 if not os.path.exists(model_path) or not os.path.exists(config_path):
     load_model = False
     logging.warning("model文件夹中没有模型或配置文件，vits不会启动")
