@@ -20,7 +20,7 @@ def _get_voice_wav(input_text):
         logging.error("不正确的音源,请设置voice_config中的voice_type")
         return hash_uuid, ""
     if not method_mapping[voice_config["voice_type"]](input_text, hash_uuid):
-        logging.error("wav生成失败")
+        logging.error(f"{voice_config['voice_type']}wav生成失败")
         return hash_uuid, ""
     return hash_uuid, _wav2silk(hash_uuid)
 
@@ -64,7 +64,7 @@ def send_msg(kwargs, msg):
 
 
 # 注册插件
-@register(name="chat_voice", description="让机器人用语音输出", version="1.2", author="oliverkirk-sudo")
+@register(name="chat_voice", description="让机器人用语音输出", version="1.3", author="oliverkirk-sudo")
 class ChatVoicePlugin(Plugin):
     def __init__(self, plugin_host: PluginHost):
         if not os.path.exists(os.path.join(os.getcwd(), "voice_tmp")):

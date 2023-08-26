@@ -1,6 +1,6 @@
 # coding=utf-8
 import os
-
+import logging
 import requests
 import base64
 import plugins.chat_voice.config.voice_config as voice_conf
@@ -28,24 +28,29 @@ def get_voice_binary(
     }
     try:
         voice_res = session.get(api, params=data, headers=headers,timeout=config.timeout)
-    except Exception:
+        logging.info(f"genshinvoice生成状态码:{voice_res.status_code}")
+    except Exception as e:
+        logging.error(f"genshinvoice生成错误:{str(e)}")
         return ""
-    sesion.close()
+    session.close()
     return voice_res
 
 
 def save_genshinvoice_wav(text: str, hash_uuid: str):
-    file_path = os.getcwd()
     try:
+        file_path = os.getcwd()
         voice_content = get_voice_binary(text)
-        if voice_content=="" or voice_content.status_code != 200:
+        if voice_content.status_code != 200:
+            logging.error(f"genshinvoice生成错误")
             return False
         with open(
             os.path.join(file_path, "voice_tmp", "voice_" + hash_uuid + ".wav"), "wb"
         ) as f:
             f.write(voice_content.content)
+        logging.info(f"genshinvoice生成完成")
         return True
-    except Exception:
+    except Exception as e:
+        logging.error(f"genshinvoice生成错误:{str(e)}")
         return False
 
 
