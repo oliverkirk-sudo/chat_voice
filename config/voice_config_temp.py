@@ -1,7 +1,7 @@
 voice_config = {
     "open": True,  # 默认开关
     "limitLength": 256,  # 设置语音文字限长 0为无限制
-    "voice_type": "azure",  # 默认合成类型"azure"|"huggingface"|"vits"
+    "voice_type": "mhyvoice",  # 默认合成类型"azure"|"huggingface"|"vits"|"sovits"|"mhyvoice"
     # "proxy_host": "127.0.0.1", #代理ip
     # "proxy_port": 7890, #代理端口
     # "proxy_type": "http" #代理方式 http | socks5
@@ -32,6 +32,16 @@ vits_config = {
     "lang": "zh",  # 语言，zh|ja|mix,mix时将中文用[ZH]包裹，日文用[JA]包裹
     "speak_id": 0,  # 朗读人id
 }
+
+class GenShinVoice:
+    def __init__(self):
+        self.open = True
+        self.character = "派蒙"
+        self.audio_speed = "1"
+        self.ns = "0.5"
+        self.nsw = "0.9"
+        self.sdp_radio = "0.2"
+        self.timeout=30
 
 
 class SoVitsConfig:

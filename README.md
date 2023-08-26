@@ -1,5 +1,5 @@
 # chat_voice
-[QChatGPT](https://github.com/RockChinQ/QChatGPT)的插件,用于将输出内容转化为音频,适用于小内存服务器
+[QChatGPT](https://github.com/RockChinQ/QChatGPT)的插件,用于将输出内容转化为音频
 - 新增支持本地模型部署
 ## 一些问题
 - 关于私信语音音质差的原因：是因为[YiriMirai](https://github.com/YiriMiraiProject/YiriMirai)支持的mirai版本到2.5，尚不支持[Audio](https://github.com/mamoe/mirai/blob/dev/docs/Messages.md#%E6%B6%88%E6%81%AF%E5%85%83%E7%B4%A0),使音频被压缩为amr格式
@@ -8,6 +8,7 @@
 ## 1、前置工作
 若启用sovits语音转换，请先安装[FFmpeg](https://www.ffmpeg.org/download.html)并加入环境变量
 包内自动安装对FFmpeg的依赖
+
 <details>
 <summary>Huggingface</summary>
     
@@ -59,7 +60,15 @@
     
 </details>
 
-<strong>其中Huggingface永久免费但每次限制150字，Azure每月50万字的额度，本地模型对CPU内存要求较高</strong>
+<details>
+<summary>genshinvoice</summary>
+    
+- 由[genshinvoice](https://genshinvoice.top/)网站提供服务，合成效果较好，速度较快。
+- 按要求修改配置文件
+    
+</details>
+
+<strong>其中Huggingface永久免费但每次限制150字，Azure每月50万字的额度，vits、sovits对CPU内存要求较高,genshinvoice目前稳定</strong>
 
 ## 2、修改配置文件
 - 下载本插件`!plugin get https://github.com/oliverkirk-sudo/chat_voice.git`
@@ -102,6 +111,15 @@ vits_config = {
     "speak_id": 0,  # 朗读人id
 }
 
+class GenShinVoice:
+    def __init__(self):
+        self.open = True
+        self.character = "派蒙" # 默认角色
+        self.audio_speed = "1" # 速度
+        self.ns = "0.5" # 情感强度
+        self.nsw = "0.9" #音素长度
+        self.sdp_radio = "0.2" # SDP合成占比
+        self.timeout = 30 #请求超时时长
 
 class SoVitsConfig:
     def __init__(self):
@@ -176,4 +194,5 @@ class SoVitsConfig:
 - `!voice type hgf`切换Huggingface语音合成
 - `!voice type vist`切换VITS语音合成
 - `!voice type sovist`切换VITS语音合成
+- `!voice type mhyvoice`切换genshinvoice语音合成
 - `tovoice 文本消息` 将指定文本转换为声音输出
