@@ -74,6 +74,7 @@
 - 下载本插件`!plugin get https://github.com/oliverkirk-sudo/chat_voice.git`
 - 进入插件目录执行`pip install -r requirements.txt`
 - 若不想启用某功能，请将对应的open键值改为False
+- sovits与vits默认关闭，如需打开,请先安装requirements_vits.txt
 - 在config文件夹中将voice_config_temp.py修改为voice_config.py,格式如下：
 ```python
 voice_config = {
@@ -101,7 +102,7 @@ huggingface_config = {
     "websocket": '',  # 填入以wss开头的websocket链接
 }
 vits_config = {
-    "open": True,
+    "open": False,
     "device": "cpu",  # cpu or cuda,cuda需要NVIDIA显卡
     "ns": 0.2,  # noise_scale(控制感情变化程度),范围[0.1-1.0],调大了声音容易怪，除非模型好
     "nsw": 0.5,  # noise_scale_w(控制音素发音长度)，范围[0.1-1.0]
@@ -123,7 +124,7 @@ class GenShinVoice:
 
 class SoVitsConfig:
     def __init__(self):
-        self.OPEN = True
+        self.OPEN = False
         # 模型位置
         self.MODEL_PATH = ''
         # 模型配置文件位置
