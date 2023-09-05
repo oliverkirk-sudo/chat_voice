@@ -23,7 +23,7 @@ huggingface_config = {
     "websocket": '',  # 填入以wss开头的websocket链接
 }
 vits_config = {
-    "open": True,
+    "open": False,
     "device": "cpu",  # cpu or cuda,cuda需要NVIDIA显卡
     "ns": 0.2,  # noise_scale(控制感情变化程度),范围[0.1-1.0],调大了声音容易怪，除非模型好
     "nsw": 0.5,  # noise_scale_w(控制音素发音长度)，范围[0.1-1.0]
@@ -46,7 +46,7 @@ class GenShinVoice:
 
 class SoVitsConfig:
     def __init__(self):
-        self.OPEN = True
+        self.OPEN = False
         # 模型位置
         self.MODEL_PATH = ''
         # 模型配置文件位置
