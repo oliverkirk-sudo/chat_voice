@@ -79,6 +79,7 @@ class ChatVoicePlugin(Plugin):
             if msg != "":
                 send_msg(kwargs, msg)
             event.prevent_default()
+            event.prevent_postorder()
             _remove_tmp(uuid)
 
     @on(PersonNormalMessageReceived)
@@ -95,6 +96,7 @@ class ChatVoicePlugin(Plugin):
                     send_msg(kwargs, voice)
                 _remove_tmp(uuid)
             event.prevent_default()
+            event.prevent_postorder()
 
     @on(PersonCommandSent)
     @on(GroupCommandSent)
@@ -122,6 +124,7 @@ class ChatVoicePlugin(Plugin):
                 logging.error("输入了不正确的参数")
                 send_msg(kwargs, "输入了不正确的参数")
             event.prevent_default()
+            event.prevent_postorder()
 
     # 插件卸载时触发
     def __del__(self):
