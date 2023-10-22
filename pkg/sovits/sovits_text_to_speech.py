@@ -23,9 +23,12 @@ def vc_fn2(hash_uuid, _text, _lang, _gender, _rate, _volume, sid, output_format,
             return "You need to upload an model", None
         if getattr(model, 'cluster_model', None) is None and model.feature_retrieval is False:
             if cluster_ratio != 0:
+                logging.debug("You need to upload an cluster model or feature retrieval model before assigning cluster ratio!")
                 return "You need to upload an cluster model or feature retrieval model before assigning cluster ratio!", None
         _rate = f"+{int(_rate * 100)}%" if _rate >= 0 else f"{int(_rate * 100)}%"
+        logging.debug(f'rate value:{_rate}')
         _volume = f"+{int(_volume * 100)}%" if _volume >= 0 else f"{int(_volume * 100)}%"
+        logging.debug(f'volume value:{_volume}')
         if _lang == "Auto":
             _gender = "Male" if _gender == "男" else "Female"
             subprocess.run([sys.executable, os.path.join(os.getcwd(), "plugins/chat_voice/pkg/sovits/edgetts/tts.py"), _text, _lang, _rate, _volume, _gender])
@@ -36,8 +39,10 @@ def vc_fn2(hash_uuid, _text, _lang, _gender, _rate, _volume, sid, output_format,
         resampled_y = librosa.resample(y, orig_sr=sr, target_sr=target_sr)
         soundfile.write(os.path.join(os.getcwd(), 'voice_tmp', 'tts.wav'), resampled_y, target_sr, subtype="PCM_16")
         input_audio = os.path.join(os.getcwd(), 'voice_tmp', 'tts.wav')
+        logging.debug(f'输入文件位置:{input_audio}')
         # audio, _ = soundfile.read(input_audio)
         output_file_path = vc_infer(hash_uuid, output_format, sid, input_audio, "tts", vc_transform, auto_f0, cluster_ratio, slice_db, noise_scale, pad_seconds, cl_num, lg_num, lgr_num, f0_predictor, enhancer_adaptive_key, cr_threshold, k_step, use_spk_mix, second_encoding, loudness_envelope_adjustment)
+        logging.debug(f"输出文件位置为：{output_file_path}")
         os.remove(os.path.join(os.getcwd(), 'voice_tmp', 'tts.wav'))
         return output_file_path
     except Exception as e:
@@ -83,7 +88,7 @@ def vc_infer(hash_uuid, output_format, sid, audio_path, truncated_basename, vc_t
     # output_file_name = 'result_' + truncated_basename + f'_{sid}_{key}{cluster}{isdiffusion}.{output_format}'
     # output_file_name = 'voice_' + hash_uuid + '.wav'
     output_file = os.path.join(os.getcwd(), 'voice_tmp', 'voice_' + hash_uuid + '.wav')
-    print(output_file)
+    logging.debug(f"音频保存位置为：{output_file}")
     # output_file = os.path.join("results", output_file_name)
     soundfile.write(output_file, _audio, model.target_sample, format=output_format)
     return output_file
@@ -145,8 +150,9 @@ def save_sovits_wav(text, hash_uuid):
     if sovits_model != '':
         model=sovits_model
     else:
+        logging.debug(f"model为空，模型未加载")
         return False
-    print(model)
+    logging.debug(f"输出文件位置为：{output_file}")
     path = vc_fn2(hash_uuid, text, sovits_config.LANG, sovits_config.GENDER, sovits_config.RATE, sovits_config.VOLUME, sovits_config.SID, sovits_config.output_format, sovits_config.vc_transform, sovits_config.auto_f0, sovits_config.cluster_ratio, sovits_config.slice_db, sovits_config.noise_scale, sovits_config.pad_seconds, sovits_config.cl_num, sovits_config.lg_num, sovits_config.lgr_num,
                   sovits_config.f0_predictor, sovits_config.enhancer_adaptive_key, sovits_config.cr_threshold, sovits_config.k_step, sovits_config.use_spk_mix, sovits_config.second_encoding, sovits_config.loudness_envelope_adjustment)
     logging.debug(f'sovits生成{path}')
