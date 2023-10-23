@@ -152,7 +152,6 @@ def save_sovits_wav(text, hash_uuid):
     else:
         logging.debug(f"model为空，模型未加载")
         return False
-    logging.debug(f"输出文件位置为：{output_file}")
     path = vc_fn2(hash_uuid, text, sovits_config.LANG, sovits_config.GENDER, sovits_config.RATE, sovits_config.VOLUME, sovits_config.SID, sovits_config.output_format, sovits_config.vc_transform, sovits_config.auto_f0, sovits_config.cluster_ratio, sovits_config.slice_db, sovits_config.noise_scale, sovits_config.pad_seconds, sovits_config.cl_num, sovits_config.lg_num, sovits_config.lgr_num,
                   sovits_config.f0_predictor, sovits_config.enhancer_adaptive_key, sovits_config.cr_threshold, sovits_config.k_step, sovits_config.use_spk_mix, sovits_config.second_encoding, sovits_config.loudness_envelope_adjustment)
     logging.debug(f'sovits生成{path}')
