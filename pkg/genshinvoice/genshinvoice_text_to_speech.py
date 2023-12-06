@@ -20,7 +20,9 @@ def get_voice_binary(
         "length": config.audio_speed,
         "noise": config.ns,
         "noisew": config.nsw,
-        "sdp_ratio": config.sdp_radio,
+        "emotion":config.emotion,
+        "language":config.character.split("_")[1],
+        "sdp": config.sdp_radio,
     }
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36 Edg/114.0.1788.0",

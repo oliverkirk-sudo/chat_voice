@@ -36,12 +36,14 @@ vits_config = {
 class GenShinVoice:
     def __init__(self):
         self.open = True
-        self.character = "派蒙"
+        self.character = "派蒙_ZH"
         self.audio_speed = "1"
         self.ns = "0.5"
         self.nsw = "0.9"
         self.sdp_radio = "0.2"
         self.timeout=30
+        self.emotion=0
+        
 
 
 class SoVitsConfig:
