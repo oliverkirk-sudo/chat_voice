@@ -43,7 +43,7 @@ class GenShinVoice:
         self.sdp_radio = 0.2
         self.timeout=30
         self.emotion="Happy"
-        config.weight=0.7
+        self.weight=0.7
         
 
 

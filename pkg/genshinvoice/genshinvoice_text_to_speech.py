@@ -3,6 +3,7 @@ import os
 import logging
 import requests
 import base64
+from uuid import uuid4
 import plugins.chat_voice.config.voice_config as voice_conf
 
 config = voice_conf.GenShinVoice()
